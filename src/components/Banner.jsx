@@ -1,7 +1,8 @@
 import { TiPlus } from "react-icons/ti";
+import friends from "../../public/friends.json"
 
 const stats = [
-  { value: 10, label: "Total Friends" },
+  { value: `${friends.length}`, label: "Total Friends" },
   { value: 3, label: "On Track" },
   { value: 6, label: "Need Attention" },
   { value: 12, label: "Interactions this month" },
@@ -24,6 +25,7 @@ const Banner = () => {
         Add Friend
       </button>
 
+      {/* summary cards */}
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-10 w-full max-w-3xl">
         {stats.map((item, index) => (
           <div
