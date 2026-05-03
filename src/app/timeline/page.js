@@ -59,7 +59,8 @@ export default function TimelinePage() {
                 <button
                     onClick={() => setFilter("Video")}
                     className={`px-4 py-2 rounded-xl text-sm border transition
-                     ${filter === "Video" ? "bg-[#244D3F] text-white border-[#244D3F]" : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"}`}
+                    
+                        ${filter === "Video" ? "bg-[#244D3F] text-white border-[#244D3F]" : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"}`}
                 >
                     Video
                 </button>
