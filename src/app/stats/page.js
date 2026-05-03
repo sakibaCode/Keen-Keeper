@@ -1,12 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
 export default function StatsPage() {
-  const [entries] = useState(() => {
-    return JSON.parse(localStorage.getItem("timeline") || "[]");
-  });
+  const [entries, setEntries] = useState([]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("timeline");
+    if (saved) {
+      setEntries(JSON.parse(saved));
+    }
+  }, []);
 
   const callCount = entries.filter((e) => e.type === "Call").length;
   const textCount = entries.filter((e) => e.type === "Text").length;
@@ -30,17 +35,16 @@ export default function StatsPage() {
       <h1 className="text-3xl font-bold mb-2">Friendship Analytics</h1>
       <p className="text-gray-500 text-sm mb-8">Overview of your interactions with friends</p>
 
-      {/* Summary Cards */}
       <div className="grid grid-cols-3 gap-4 mb-8">
 
         <div className="bg-white border border-gray-200 rounded-2xl p-5 text-center">
           <h2 className="text-3xl font-bold text-[#244D3F]">{callCount}</h2>
-          <p className="text-sm text-gray-500 mt-1"> Calls</p>
+          <p className="text-sm text-gray-500 mt-1">Calls</p>
         </div>
 
         <div className="bg-white border border-gray-200 rounded-2xl p-5 text-center">
           <h2 className="text-3xl font-bold text-[#244D3F]">{textCount}</h2>
-          <p className="text-sm text-gray-500 mt-1"> Texts</p>
+          <p className="text-sm text-gray-500 mt-1">Texts</p>
         </div>
 
         <div className="bg-white border border-gray-200 rounded-2xl p-5 text-center">
@@ -50,7 +54,6 @@ export default function StatsPage() {
 
       </div>
 
-      {/* Pie Chart */}
       <div className="bg-white border border-gray-200 rounded-2xl p-6">
 
         <h2 className="font-semibold text-gray-800 mb-1">Interactions Breakdown</h2>
