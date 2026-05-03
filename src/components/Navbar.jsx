@@ -32,8 +32,8 @@ const Navbar = () => {
     <div className="bg-base-100 shadow-sm ">
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
 
-        <Link href="/" className="text-xl font-semibold">
-          Keen Keeper
+        <Link href="/" className="text-2xl font-bold ">
+              Keen<span className="text-[#426a6c]">Keeper</span>
         </Link>
 
         <div className="flex items-center gap-3 text-sm">

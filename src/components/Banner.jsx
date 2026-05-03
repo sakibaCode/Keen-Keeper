@@ -1,13 +1,17 @@
 import { TiPlus } from "react-icons/ti";
 import friends from "../../public/friends.json"
 
+
+const totalFriends = friends.length;
+const onTrack = friends.filter((f) => f.status === "on-track").length;
+const needAttention = friends.filter((f) => f.status === "overdue" || f.status === "almost due").length;
+
 const stats = [
-  { value: `${friends.length}`, label: "Total Friends" },
-  { value: 3, label: "On Track" },
-  { value: 6, label: "Need Attention" },
+  { value: totalFriends, label: "Total Friends" },
+  { value: onTrack, label: "On Track" },
+  { value: needAttention, label: "Need Attention" },
   { value: 12, label: "Interactions this month" },
 ];
-
 const Banner = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-16 flex flex-col items-center text-center">

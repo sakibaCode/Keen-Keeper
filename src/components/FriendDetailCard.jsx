@@ -22,34 +22,33 @@ export default function FriendDetailCard({ friend }) {
 
   const [timeline, setTimeline] = useState([]);
 
- 
-
   const handleCheckIn = (type) => {
-    setTimeline((prev) => [
-      {
-        id: Date.now(),
-        type,
-        title: `${type} with ${friend.name}`,
-        date: new Date().toLocaleDateString("en-US", {
-          month: "short", day: "numeric", year: "numeric",
-        }),
-      },
-      ...prev,
-    ]);
 
+    const newEntry = {
+      id: Date.now(),
+      type,
+      title: `${type} with ${friend.name}`,
+      date: new Date().toLocaleDateString("en-US", {
+        month: "short", day: "numeric", year: "numeric",
+      }),
+      
+    };
+
+    const existing = JSON.parse(localStorage.getItem("timeline") || "[]");
+    localStorage.setItem("timeline", JSON.stringify([newEntry, ...existing]));
+
+    setTimeline((prev) => [newEntry, ...prev]);
   };
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10 relative ">
-
 
       <div className="grid grid-cols-2 md:grid-cols-[280px_1fr] gap-6">
 
         {/* Left Column */}
         <div className="flex flex-col gap-4 md:border-r border-gray-200 md:pr-8">
 
-         
-          <div className="flex flex-col items-center text-center border border-gray-400 rounded-2xl">
+          <div className="flex flex-col items-center text-center ">
 
             <Image
               src={friend.picture}
@@ -73,8 +72,8 @@ export default function FriendDetailCard({ friend }) {
               ))}
             </div>
 
-            <p className="text-gray-500 text-sm mt-4 italic text-[30px]">{friend.bio}</p>
-            <p className="text-gray-400 text-xs mt-2 text-[30px]">Preferred: {friend.email}</p>
+            <p className="text-gray-500 text-sm mt-4 italic text-[15px]">{friend.bio}</p>
+            <p className="text-gray-400 text-xs mt-2 text-[15px]">Preferred: {friend.email}</p>
 
           </div>
 
@@ -139,7 +138,6 @@ export default function FriendDetailCard({ friend }) {
           </div>
 
           {/* Quick Check-In */}
-
           <div className="bg-white border border-gray-100 rounded-2xl p-5 ">
 
             <h2 className="font-semibold text-gray-800 mb-4">Quick Check-In</h2>
@@ -178,25 +176,23 @@ export default function FriendDetailCard({ friend }) {
               <h2 className="font-semibold text-gray-800 mb-4">Recent Check-Ins</h2>
 
               <div className="flex flex-col gap-3">
-
-                {
-                timeline.map((entry) => (
+                {timeline.map((entry) => (
                   <div key={entry.id} className="flex items-center gap-3 text-sm text-gray-600 border-b border-gray-50 pb-2 last:border-0">
                     <span className="text-[#244D3F]">
-                      {entry.type === "Call" ? <IoCallOutline size={16} /> : entry.type === "Text" ? <BsChatText size={16} /> : <MdOutlineVideocam size={16} />}
+                      {entry.type === "Call"
+                        ? <IoCallOutline size={16} />
+                        : entry.type === "Text"
+                        ? <BsChatText size={16} />
+                        : <MdOutlineVideocam size={16} />}
                     </span>
 
                     <span className="flex-1">{entry.title}</span>
-
                     <span className="text-gray-400 text-xs">{entry.date}</span>
-
                   </div>
-
                 ))}
               </div>
 
             </div>
-            
           )}
 
         </div>

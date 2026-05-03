@@ -11,7 +11,7 @@ export default function Home() {
         Your Friends
       </h1>
 
-      <div className="grid grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-6 justify-items-center">
+      <div className="grid md:grid-cols-4 sm:grid-cols-1 gap-6 justify-items-center">
         {friends.map((friend) => (
           <FriendCard key={friend.id} friend={friend} />
         ))}
